@@ -1,0 +1,192 @@
+/*.history, .function{
+    border: 2px solid black; 
+}
+*/
+html{
+    cursor: none;
+}
+
+body{
+    background-color: white;
+}
+
+h1{
+    position: absolute;
+    top:200px;
+    left:1280px;
+    font-size: 80px;
+}
+
+h2{
+    position: absolute;
+    top:800px;
+    left:350px;
+}
+.box {
+    width: 5.787vw;
+    position: absolute;
+    padding-top: 2vh;
+  }
+
+.bucket {
+    position: absolute;
+    top:4.630vw;
+    left:5.787vw;
+    width:5.787vw;
+}
+
+.first{
+    position: absolute;
+    top:5.208vw;
+    left:21.123vw;
+    width:4.659vw;
+}
+
+.win2000{
+    position: absolute;
+    top:9.259vw;
+    left:35.475vw;
+    width:11.400vw;
+}
+
+.ew{
+    position: absolute;
+    top:5.787vw;
+    left:48.843vw;
+    width:4.051vw;
+}
+
+.text{
+    position: absolute;
+    top:19.097vw;
+    left:53.704vw;
+    width:3.762vw;
+}
+
+.macosnew{
+    position: absolute;
+    top:5.498vw;
+    left:65.394vw;
+    width:5.208vw;
+}
+
+.pointer{
+    position: absolute;
+    top:2.894vw;
+    left:84.491vw;
+    width:11.806vw;
+}
+
+.ns{
+    position: absolute;
+    top:19.097vw;
+    left:5.266vw;
+    width:3.472vw;
+}
+
+.macos1{
+    position: absolute;
+    top:23.148vw;
+    left:19.734vw;
+    width:2.025vw;
+}
+
+.win3{
+    position: absolute;
+    top:26.331vw;
+    left:5.903vw;
+    width:4.919vw;
+}
+
+.brush{
+    position: absolute;
+    top: 47.454vw;
+    left:4.630vw;
+    width:5.787vw;
+}
+
+.win7{
+    position: absolute;
+    top: 27.778vw;
+    left:32.002vw;
+    width:2.315vw;
+}
+
+.win10{
+    position: absolute;
+    top:36.458vw;
+    left: 38.484vw;
+    width:2.315vw;
+}
+
+
+.win95{
+    position: absolute;
+    top:42.245vw;
+    left:46.296vw;
+    width: 4.977vw;
+}
+
+.nwse{
+    position: absolute;
+    top:36.458vw;
+    left:64.236vw;
+    width: 3.183vw;
+}
+
+.nesw{
+    position: absolute;
+    top:36.458vw;
+    left:14.468vw;
+    width: 4.051vw;
+}
+
+.hourglass{
+    position: absolute;
+    top:27.778vw;
+    left:61.053vw;
+    width: 3.183vw;
+}
+
+.xerox{
+    position: absolute;
+    top:27.778vw;
+    left:74.653vw;
+    width: 10.417vw;
+}
+
+.macos103{
+    position: absolute;
+    top:27.199vw;
+    left:45.197vw;
+    width: 4.630vw;
+}
+
+.move{
+    position: absolute;
+    top:30vw;
+    left:87.963vw;
+    width: 3.472vw;
+}
+
+.help{
+    position: absolute;
+    top:48.032vw;
+    left:75.231vw;
+    width: 4.051vw;
+}
+
+.loading{
+    position: absolute;
+    top:19.097vw;
+    left:63.657vw;
+    width: 4.630vw;
+}
+
+.rotate{
+    position: absolute;
+    top:48.032vw;
+    left:89.120vw;
+    width: 5.208vw;
+}
+
