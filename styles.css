@@ -10,6 +10,17 @@ body{
     background-color: white;
 }
 
+#canvas {
+    z-index: 100;
+    margin: 10px;
+ 
+}
+
+#brush {
+    text-align: center;
+    line-height: 50px;
+}
+
 h1{
     position: absolute;
     top:200px;
@@ -19,11 +30,11 @@ h1{
 
 h2{
     position: absolute;
-    top:800px;
-    left:350px;
+    top:750px;
+    left:250px;
+    font-size: 35px;
 }
 .box {
-    width: 5.787vw;
     position: absolute;
     padding-top: 2vh;
   }

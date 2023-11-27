@@ -11,19 +11,21 @@
 
 <body>
     <div class="container">
-        <img src="/cursor-img/macos-new.svg" class="history box macosnew" alt="macosnew cursor">
+        <img src="/cursor-img/macos-new.svg" class="history box macosnew " alt="macosnew cursor">
         <img src="/cursor-img/loading.gif" class="history loading box" alt="loading cursor">
-        <img src="/cursor-img/brush.svg" class="function box brush" alt="brush cursor">
+        <img src="/cursor-img/brush.svg" class="function box brush" id="brush" alt="brush cursor">
         <img src="/cursor-img/bucket.svg" class="function box bucket" alt="bucket cursor">
         <img src="/cursor-img/help.svg" class="function box help" alt="help cursor">
         <img src="/cursor-img/move.svg" class="function box move" id="move" alt="move cursor">
         <img src="/cursor-img/pointer.svg" class="history box pointer" alt="pointer cursor">
-        <img src="/cursor-img/resize (east-west).svg" class="function box resize ew" alt="resize cursor">
-        <img src="/cursor-img/resize (north-south).svg" class="function box resize ns" alt="resize cursor">
-        <img src="/cursor-img/resize (northwest-southeast).svg" class="function box resize nwse" alt="resize cursor">
-        <img src="/cursor-img/resize(northeast- southwest).svg" class="function box resize nesw" alt="resize cursor">
+        <img src="/cursor-img/resize (east-west).svg" class="function box resize ew" id="resize1" alt="resize cursor">
+        <img src="/cursor-img/resize (north-south).svg" class="function box resize ns" id="resize2" alt="resize cursor">
+        <img src="/cursor-img/resize (northwest-southeast).svg" class="function box resize nwse" id="resize3"
+            alt="resize cursor">
+        <img src="/cursor-img/resize(northeast- southwest).svg" class="function box resize nesw" id="resize4"
+            alt="resize cursor">
         <img src="/cursor-img/vertical.svg" class="history first box" alt="first box cursor">
-        <img src="/cursor-img/text.svg" class="function text box" alt="text cursor">
+        <img src="/cursor-img/text.svg" class="function text box" id="text" alt="text cursor">
         <img src="/cursor-img/macos1-10.svg" class="history box macos1" alt="macos1 cursor">
         <img src="/cursor-img/macos10-3.svg" class="history box macos103" alt="macos10.3 cursor">
         <img src="/cursor-img/win10.svg" class="history box win10" alt="win10 cursor">
@@ -35,17 +37,17 @@
         <img src="/cursor-img/hourglass.gif" class="history box hourglass" alt="hourglass cursor">
         <img src="/cursor-img/rotate.svg" class="function box rotate" alt="rotate cursor">
     </div>
-    <h1>Cursor<br>Library</h1>
-    <h2>Welcome,<span id="userName"></span>
+    <h1 class="box">Cursor<br>Library</h1>
+    <h2 class="box" id="editableText">Welcome,<span id="userName"></span>
         </br>Try double click the cursor!
     </h2>
+    <canvas id="canvas" width="800" height="600"></canvas>
+    <script src="/script.js"></script>
 
 
 
 
-    <script src="/script.js">
 
-    </script>
 </body>
 
 </html>
