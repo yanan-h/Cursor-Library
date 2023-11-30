@@ -13,7 +13,7 @@ document.addEventListener('mousemove', function (e) {
         document.body.appendChild(textCursor);
     }
 
-    if (!isEditing &&!brushActive &&!isResizing) {
+    if (!isEditing &&!brushActive &&!isResizing&&!isRotating) {
       textCursor.textContent = isMovable ? `${userName} moving` : userName;
   }
 
@@ -21,22 +21,6 @@ document.addEventListener('mousemove', function (e) {
   textCursor.style.top = e.clientY + 'px';
 });
 
-function updateTextCursor() {
-  const textCursor = document.getElementById('text-cursor');
-  if (textCursor) {
-      if (isEditing) {
-          textCursor.textContent = `${userName} typing`;
-      } else if (isBucketSelected) {
-          textCursor.textContent = `${userName} pouring`;
-      } else if (isResizing) {
-          textCursor.textContent = `${userName} resizing`;
-      } else if (brushActive) {
-          textCursor.textContent = `${userName} drawing`;
-      } else {
-          textCursor.textContent = userName;
-      }
-  }
-}
 
 //这是move的部分
 
@@ -53,7 +37,6 @@ move.ondblclick = function() {
 
   // 添加 "moving" 到鼠标文本
   if (isMovable) {
-    
     move.textContent += " moving";
   }
 };
@@ -101,16 +84,20 @@ let isBucketSelected = false; // 用于跟踪是否选中了"bucket"元素
 // 获取所有具有 "bucket" 类的元素
 const buckets = document.querySelectorAll(".bucket");
 
-// 为每个 bucket 元素添加双击事件监听器
 buckets.forEach(bucket => {
   bucket.addEventListener("dblclick", () => {
-      isBucketSelected = !isBucketSelected;
-      const randomColor = isBucketSelected ? getRandomColor() : ''; // 如果取消 bucket 选择，重置颜色
-      document.body.style.backgroundColor = randomColor;
-      updateTextCursor(); // 更新文本光标
+    // 改变背景颜色
+    document.body.style.backgroundColor = getRandomColor();
+    
+    // 立即更新文本光标为倾倒状态
+    updateTextCursor(`${userName} pouring`);
+
+    // 设置延时，几秒后重置光标文字
+    setTimeout(() => {
+      updateTextCursor(); // 重置文本光标
+    }, 3000); // 3秒后执行
   });
 });
-
 
 // 生成随机颜色的函数
 function getRandomColor() {
@@ -121,6 +108,7 @@ function getRandomColor() {
   }
   return color;
 }
+
 
 
 // 在此处添加画布绘画相关的代码
@@ -137,7 +125,13 @@ function stopPainting() {
     ctx.beginPath(); // 重置绘图路径
 }
 
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+
+ctx.lineCap = 'round';
+
 function draw(e) {
+  ctx.lineWidth = 2;
     if (!painting) return;
     ctx.lineTo(e.clientX - canvas.offsetLeft, e.clientY - canvas.offsetTop);
     ctx.stroke();
@@ -145,11 +139,13 @@ function draw(e) {
     ctx.moveTo(e.clientX - canvas.offsetLeft, e.clientY - canvas.offsetTop);
 }
 
-const canvas = document.getElementById('canvas');
-const ctx = canvas.getContext('2d');
-ctx.lineWidth = 5;
-ctx.lineCap = 'round';
 
+function resizeCanvas() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
 
 const brush = document.getElementById('brush');
 brush.addEventListener('dblclick', function() {
@@ -240,48 +236,194 @@ document.addEventListener('dblclick', function(event) {
 
 
 //这是resize部分
+
 let isResizing = false;
 let selectedBox = null;
 
-const resizeHandles = ['resize1', 'resize2', 'resize3', 'resize4'].map(id => document.getElementById(id));
+const resizeHandles = document.querySelectorAll('.resize');
 resizeHandles.forEach(handle => {
-  handle.addEventListener('dblclick', function() {
-      isResizing = !isResizing;
-      updateTextCursor();
-  });
+    handle.addEventListener('dblclick', function() {
+        isResizing = !isResizing;
+        updateTextCursor(isResizing ? `${userName} resizing` : '');
+    });
 });
-
-
-
-let startX, startY, startWidth, startHeight;
 
 document.addEventListener('mousedown', function(e) {
     if (!isResizing) return;
 
-    startX = e.clientX;
-    startY = e.clientY;
-    startWidth = e.target.offsetWidth;
-    startHeight = e.target.offsetHeight;
+    // 检查点击的是否是一个 box
+    if (e.target.classList.contains('box')) {
+        selectedBox = e.target;
+        let startX = e.clientX;
+        let startY = e.clientY;
+        let startWidth = selectedBox.offsetWidth;
+        let startHeight = selectedBox.offsetHeight;
 
-    function onMouseMove(e) {
-        const dx = e.clientX - startX;
-        const dy = e.clientY - startY;
-        selectedBox.style.width = startWidth + dx + 'px';
-        selectedBox.style.height = startHeight + dy + 'px';
-    
+        function onMouseMove(e) {
+            const dx = e.clientX - startX;
+            const dy = e.clientY - startY;
+            selectedBox.style.width = Math.max(20, startWidth + dx) + 'px';
+            selectedBox.style.height = Math.max(20, startHeight + dy) + 'px';
+        }
+
+        function onMouseUp() {
+            document.removeEventListener('mousemove', onMouseMove);
+            document.removeEventListener('mouseup', onMouseUp);
+        }
+
+        document.addEventListener('mousemove', onMouseMove);
+        document.addEventListener('mouseup', onMouseUp);
     }
-
-    function onMouseUp() {
-        document.removeEventListener('mousemove', onMouseMove);
-        document.removeEventListener('mouseup', onMouseUp);
-    }
-
-    document.addEventListener('mousemove', onMouseMove);
-    document.addEventListener('mouseup', onMouseUp);
 });
+
+// 双击任何位置取消重置
 document.addEventListener('dblclick', function(event) {
-  if (!resizeHandles.includes(event.target)) {
+  // 检查是否处于重置模式并且点击的不是 resize 控件
+  if (isResizing && !event.target.classList.contains('resize')) {
       isResizing = false;
+      selectedBox = null;
       updateTextCursor();
   }
 });
+
+/*
+function updateTextCursor() {
+  const textCursor = document.getElementById('text-cursor');
+  if (textCursor) {
+      if (isEditing) {
+          textCursor.textContent = `${userName} typing`;
+      } else if (isBucketSelected) {
+          textCursor.textContent = `${userName} pouring`;
+      } else if (isResizing) {
+          textCursor.textContent = `${userName} resizing`;
+      } else if (brushActive) {
+          textCursor.textContent = `${userName} drawing`; 
+      } else if (isRotating) {
+          textCursor.textContent = `${userName} rotating`;
+      } else {
+          textCursor.textContent = userName;
+      }
+  }
+}
+*/
+
+
+//这是rorate的部分
+
+
+let isRotating = false;
+let rotateBox = null;
+
+const rotateHandle = document.getElementById('rotate');
+rotateHandle.addEventListener('dblclick', function() {
+    isRotating = !isRotating;
+    updateTextCursor(isRotating ? `${userName} rotating` : '');
+});
+
+document.addEventListener('mousedown', function(e) {
+    if (!isRotating) return;
+
+    if (e.target.classList.contains('box')) {
+        rotateBox = e.target;
+
+        document.addEventListener('mousemove', onRotateMove);
+        document.addEventListener('mouseup', function() {
+        document.removeEventListener('mousemove', onRotateMove);
+        });
+    }
+});
+
+function onRotateMove(e) {
+    if (!rotateBox) return;
+
+    // 计算旋转角度（示例，可能需要根据实际情况调整）
+    let rect = rotateBox.getBoundingClientRect();
+    let center_x = rect.left + rect.width / 2;
+    let center_y = rect.top + rect.height / 2;
+    let angle = Math.atan2(e.clientY - center_y, e.clientX - center_x) * 180 / Math.PI;
+    
+    rotateBox.style.transform = `rotate(${angle}deg)`;
+}
+
+// 双击任何位置取消旋转
+document.addEventListener('dblclick', function(event) {
+  if (isRotating && event.target.id !== 'rotate') {
+      isRotating = false;
+      rotateBox = null;
+      updateTextCursor();
+
+      // 取消mousemove事件监听，以停止旋转
+      document.removeEventListener('mousemove', onRotateMove);
+  }
+});
+
+//这是介绍的部分
+
+let isHelpModeActive = false; // 标志变量，追踪 help 功能是否激活
+const textCursor = document.getElementById('text-cursor');
+
+// 为 'help' 添加双击事件监听器
+document.getElementById("help").addEventListener('dblclick', function() {
+    isHelpModeActive = true; // 激活 help 功能
+    updateTextCursor("Try click the cursor");
+});
+
+// 为每个 'box' 添加单击事件监听器
+boxes.forEach(function(box) {
+    box.addEventListener('click', function() {
+        // 当 help 功能激活且单击任何 'box' 时，显示其 alt 文本
+        if (isHelpModeActive && box.alt) {
+            updateTextCursor(box.alt);
+        }
+    });
+});
+
+// 添加全局双击事件监听器以取消 help 功能
+document.addEventListener('dblclick', function(event) {
+    // 检查双击的是否是 'help' 本身，如果不是，则取消 help 功能
+    if (event.target.id !== 'help' && isHelpModeActive) {
+        isHelpModeActive = false;
+        updateTextCursor(userName); // 恢复到默认文本
+    }
+});
+
+// 更新文本光标函数
+function updateTextCursor(text) {
+    if (textCursor) {
+        textCursor.textContent = text;
+    }
+}
+
+
+
+
+//update textcursor
+function updateTextCursor(statusText = '') {
+  const textCursor = document.getElementById('text-cursor');
+  if (textCursor) {
+      textCursor.textContent = statusText || `${userName}${isEditing ? ' typing' : isBucketSelected ? ' pouring' : isResizing ? ' resizing' : brushActive ? ' drawing' : isRotating ? ' rotating' : ''}`;
+  }
+  updateUserNameDisplay();
+}
+
+// 获取ID为 'screenshot' 的元素
+const screenshotBox = document.getElementById('screenshot');
+
+// 为该元素添加双击事件监听器
+screenshotBox.addEventListener('dblclick', function() {
+    // 调用浏览器的打印功能
+    window.print();
+});
+
+
+// 更新 userNameDisplay 中的内容
+function updateUserNameDisplay() {
+  const userName = localStorage.getItem('userName'); // 获取 userName
+  const userNamePrintSpan = document.getElementById('userNameprint'); // 获取 userNameprint 的 span 元素
+
+  if (userNamePrintSpan) {
+      userNamePrintSpan.textContent = userName; // 更新 userNameprint 的内容
+  }
+}
+// 调用这个函数来初始化 userNameDisplay 的内容
+updateUserNameDisplay();

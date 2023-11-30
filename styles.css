@@ -11,10 +11,29 @@ body{
     background-color: white;
 }
 
-#canvas {
-    z-index: 100;
-
+.outer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border: 2.5vw solid black; /* 边框样式 */
+    box-sizing: border-box;
+    overflow: auto; /* 在内容超出时显示滚动条 */
+    padding: 15px; /* 与边框宽度相同的内部间距 */
+    z-index: -2;
 }
+
+canvas {
+    width: 100vw;   /* 设置宽度为视口宽度的100% */
+    height: 100vh;  /* 设置高度为视口高度的100% */
+    position: fixed; /* 使canvas定位于固定位置 */
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+
 
 #brush {
     text-align: center;
@@ -140,9 +159,9 @@ h2{
 
 .nwse{
     position: absolute;
-    top:630px;
+    top:700px;
     left:1110px;
-    width: 55px;
+    width: 60px;
 }
 
 .nesw{
@@ -200,5 +219,42 @@ h2{
     left:1540px;
     width: 90px;
 }
+
+.screenshot{
+    position: absolute;
+    top:600px;
+    left:960px;
+    width: 76px;
+}
+
+@media screen {
+    #userNameDisplay {
+        display: none;
+    }
+}
+
+
+    
+
+@media print {
+    .outer {
+        display:none;
+        
+    }
+    
+    #userNameDisplay {
+        display: block;
+        position: absolute;
+        bottom: 30px;
+        left: 50px;
+        font-size: 16px;
+        text-align: center;
+    }
+}
+
+/*@page {
+    margin: 1.5cm !important;
+  }
+*/
 
 
