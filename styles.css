@@ -2,6 +2,7 @@
     border: 2px solid black; 
 }
 */
+
 html{
     cursor: none;
 }
@@ -12,8 +13,7 @@ body{
 
 #canvas {
     z-index: 100;
-    margin: 10px;
- 
+
 }
 
 #brush {
@@ -36,168 +36,169 @@ h2{
 }
 .box {
     position: absolute;
-    padding-top: 2vh;
+    padding-top: 10px;
   }
 
 .bucket {
     position: absolute;
-    top:4.630vw;
-    left:5.787vw;
-    width:5.787vw;
+    top:80px;
+    left:100px;
+    width:100px;
 }
 
 .first{
     position: absolute;
-    top:5.208vw;
-    left:21.123vw;
-    width:4.659vw;
+    top:90px;
+    left:365px;
+    width:81px;
 }
 
 .win2000{
     position: absolute;
-    top:9.259vw;
-    left:35.475vw;
-    width:11.400vw;
+    top:160px;
+    left:613px;
+    width:197px;
 }
 
 .ew{
     position: absolute;
-    top:5.787vw;
-    left:48.843vw;
-    width:4.051vw;
+    top:100px;
+    left:844px;
+    width:70px;
 }
 
 .text{
     position: absolute;
-    top:19.097vw;
-    left:53.704vw;
-    width:3.762vw;
+    top:330px;
+    left:928px;
+    width:65px;
 }
 
 .macosnew{
     position: absolute;
-    top:5.498vw;
-    left:65.394vw;
-    width:5.208vw;
+    top:95px;
+    left:1130px;
+    width:90px;
 }
 
 .pointer{
     position: absolute;
-    top:2.894vw;
-    left:84.491vw;
-    width:11.806vw;
+    top:50px;
+    left:1460px;
+    width:204px;
 }
 
 .ns{
     position: absolute;
-    top:19.097vw;
-    left:5.266vw;
-    width:3.472vw;
+    top:330px;
+    left:91px;
+    width:60px;
 }
 
 .macos1{
     position: absolute;
-    top:23.148vw;
-    left:19.734vw;
-    width:2.025vw;
+    top:400px;
+    left:341px;
+    width:35px;
 }
 
 .win3{
     position: absolute;
-    top:26.331vw;
-    left:5.903vw;
-    width:4.919vw;
+    top:455px;
+    left:102px;
+    width:85px;
 }
 
 .brush{
     position: absolute;
-    top: 47.454vw;
-    left:4.630vw;
-    width:5.787vw;
+    top: 820px;
+    left:80px;
+    width:100px;
 }
 
 .win7{
     position: absolute;
-    top: 27.778vw;
-    left:32.002vw;
-    width:2.315vw;
+    top: 480px;
+    left:553px;
+    width:40px;
 }
 
 .win10{
     position: absolute;
-    top:36.458vw;
-    left: 38.484vw;
-    width:2.315vw;
+    top:630px;
+    left: 665px;
+    width:40px;
 }
 
 
 .win95{
     position: absolute;
-    top:42.245vw;
-    left:46.296vw;
-    width: 4.977vw;
+    top:730px;
+    left:800px;
+    width: 86px;
 }
 
 .nwse{
     position: absolute;
-    top:36.458vw;
-    left:64.236vw;
-    width: 3.183vw;
+    top:630px;
+    left:1110px;
+    width: 55px;
 }
 
 .nesw{
     position: absolute;
-    top:36.458vw;
-    left:14.468vw;
-    width: 4.051vw;
+    top:630px;
+    left:250px;
+    width: 70px;
 }
 
 .hourglass{
     position: absolute;
-    top:27.778vw;
-    left:61.053vw;
-    width: 3.183vw;
+    top:480px;
+    left:1055px;
+    width: 55px;
 }
 
 .xerox{
     position: absolute;
-    top:27.778vw;
-    left:74.653vw;
-    width: 10.417vw;
+    top:480px;
+    left:1290px;
+    width: 180px;
 }
 
 .macos103{
     position: absolute;
-    top:27.199vw;
-    left:45.197vw;
-    width: 4.630vw;
+    top:470px;
+    left:781px;
+    width: 80px;
 }
 
 .move{
     position: absolute;
-    top:30vw;
-    left:87.963vw;
-    width: 3.472vw;
+    top:518px;
+    left:1520px;
+    width: 60px;
 }
 
 .help{
     position: absolute;
-    top:48.032vw;
-    left:75.231vw;
-    width: 4.051vw;
+    top:830px;
+    left:1300px;
+    width: 70px;
 }
 
 .loading{
     position: absolute;
-    top:19.097vw;
-    left:63.657vw;
-    width: 4.630vw;
+    top:330px;
+    left:1100px;
+    width: 80px;
 }
 
 .rotate{
     position: absolute;
-    top:48.032vw;
-    left:89.120vw;
-    width: 5.208vw;
+    top:830px;
+    left:1540px;
+    width: 90px;
 }
+
 

@@ -13,7 +13,7 @@ document.addEventListener('mousemove', function (e) {
         document.body.appendChild(textCursor);
     }
 
-    if (!isEditing &&!brushActive) {
+    if (!isEditing &&!brushActive &&!isResizing) {
       textCursor.textContent = isMovable ? `${userName} moving` : userName;
   }
 
@@ -21,8 +21,24 @@ document.addEventListener('mousemove', function (e) {
   textCursor.style.top = e.clientY + 'px';
 });
 
+function updateTextCursor() {
+  const textCursor = document.getElementById('text-cursor');
+  if (textCursor) {
+      if (isEditing) {
+          textCursor.textContent = `${userName} typing`;
+      } else if (isBucketSelected) {
+          textCursor.textContent = `${userName} pouring`;
+      } else if (isResizing) {
+          textCursor.textContent = `${userName} resizing`;
+      } else if (brushActive) {
+          textCursor.textContent = `${userName} drawing`;
+      } else {
+          textCursor.textContent = userName;
+      }
+  }
+}
 
-/*这是move的部分*/
+//这是move的部分
 
 // 获取所有拥有 'box' 类的元素
 let boxes = document.querySelectorAll(".box");
@@ -88,24 +104,13 @@ const buckets = document.querySelectorAll(".bucket");
 // 为每个 bucket 元素添加双击事件监听器
 buckets.forEach(bucket => {
   bucket.addEventListener("dblclick", () => {
-    if (isBucketSelected) {
-      // 如果已经选中了"bucket"元素，取消选中
-      isBucketSelected = false;
-    } else {
-      // 如果未选中"bucket"元素，执行选中操作
-      // 生成随机背景颜色，例如 "#RRGGBB" 格式
-      const randomColor = getRandomColor();
-
-      // 将随机背景颜色应用到整个网页的背景
+      isBucketSelected = !isBucketSelected;
+      const randomColor = isBucketSelected ? getRandomColor() : ''; // 如果取消 bucket 选择，重置颜色
       document.body.style.backgroundColor = randomColor;
-      const textCursor = document.getElementById('text-cursor');
-      if (textCursor) {
-        textCursor.textContent = `${userName} pouring`;
-      }
-  
-    }
+      updateTextCursor(); // 更新文本光标
   });
 });
+
 
 // 生成随机颜色的函数
 function getRandomColor() {
@@ -117,8 +122,6 @@ function getRandomColor() {
   return color;
 }
 
-
-// ...[您现有的代码]...
 
 // 在此处添加画布绘画相关的代码
 let painting = false;
@@ -198,7 +201,7 @@ document.addEventListener('dblclick', function(event) {
   }
 });
 
-
+//输入部分
 
 let isEditing = false;
 
@@ -219,9 +222,66 @@ textElement.addEventListener('dblclick', function() {
     }
 });
 
-function updateTextCursor() {
-    const textCursor = document.getElementById('text-cursor');
-    if (textCursor) {
-        textCursor.textContent = isEditing ? `${userName} typing` : userName;
+document.addEventListener('dblclick', function(event) {
+  if (isEditing && event.target !== textElement) {
+      isEditing = false;
+      editableText.setAttribute('contenteditable', 'false');
+      updateTextCursor();
+  } else if (brushActive && event.target !== brush) {
+      brushActive = false;
+      painting = false;
+      canvas.removeEventListener('mousedown', startPainting);
+      canvas.removeEventListener('mouseup', stopPainting);
+      canvas.removeEventListener('mousemove', draw);
+      updateTextCursor();
+  }
+});
+
+
+
+//这是resize部分
+let isResizing = false;
+let selectedBox = null;
+
+const resizeHandles = ['resize1', 'resize2', 'resize3', 'resize4'].map(id => document.getElementById(id));
+resizeHandles.forEach(handle => {
+  handle.addEventListener('dblclick', function() {
+      isResizing = !isResizing;
+      updateTextCursor();
+  });
+});
+
+
+
+let startX, startY, startWidth, startHeight;
+
+document.addEventListener('mousedown', function(e) {
+    if (!isResizing) return;
+
+    startX = e.clientX;
+    startY = e.clientY;
+    startWidth = e.target.offsetWidth;
+    startHeight = e.target.offsetHeight;
+
+    function onMouseMove(e) {
+        const dx = e.clientX - startX;
+        const dy = e.clientY - startY;
+        selectedBox.style.width = startWidth + dx + 'px';
+        selectedBox.style.height = startHeight + dy + 'px';
+    
     }
-}
+
+    function onMouseUp() {
+        document.removeEventListener('mousemove', onMouseMove);
+        document.removeEventListener('mouseup', onMouseUp);
+    }
+
+    document.addEventListener('mousemove', onMouseMove);
+    document.addEventListener('mouseup', onMouseUp);
+});
+document.addEventListener('dblclick', function(event) {
+  if (!resizeHandles.includes(event.target)) {
+      isResizing = false;
+      updateTextCursor();
+  }
+});
