@@ -8,13 +8,25 @@ document.addEventListener('mousemove', function (e) {
         textCursor.id = 'text-cursor';
         textCursor.style.position = 'absolute';
         textCursor.style.pointerEvents = 'none'; 
-        textCursor.style.fontSize = '24px';
+        textCursor.style.fontSize = '20px';
         textCursor.textContent = userName;
         document.body.appendChild(textCursor);
     }
 
-    if (!isEditing &&!brushActive &&!isResizing&&!isRotating) {
-      textCursor.textContent = isMovable ? `${userName} moving` : userName;
+    if (!isHelpModeActive) {
+      if (isEditing) {
+          textCursor.textContent = `${userName} typing`;
+      } else if (brushActive) {
+          textCursor.textContent = `${userName} drawing`;
+      } else if (isResizing) {
+          textCursor.textContent = `${userName} resizing`;
+      } else if (isRotating) {
+          textCursor.textContent = `${userName} rotating`;
+      } else if (isMovable) {
+          textCursor.textContent = `${userName} moving`;
+      } else {
+          textCursor.textContent = userName;
+      }
   }
 
   textCursor.style.left = e.clientX + 'px';
@@ -360,22 +372,30 @@ document.addEventListener('dblclick', function(event) {
 //这是介绍的部分
 
 let isHelpModeActive = false; // 标志变量，追踪 help 功能是否激活
-const textCursor = document.getElementById('text-cursor');
+let helpText = "Try one click the cursor"; // 默认 help 文本
+
 
 // 为 'help' 添加双击事件监听器
 document.getElementById("help").addEventListener('dblclick', function() {
-    isHelpModeActive = true; // 激活 help 功能
-    updateTextCursor("Try click the cursor");
+  isHelpModeActive = !isHelpModeActive; // 切换 help 功能的状态
+  if (isHelpModeActive) {
+      // 如果激活了 help 功能，则显示默认 help 文本
+      updateTextCursor(helpText);
+  } else {
+      // 如果取消了 help 功能，则重置文本光标
+      updateTextCursor();
+  }
 });
+
 
 // 为每个 'box' 添加单击事件监听器
 boxes.forEach(function(box) {
-    box.addEventListener('click', function() {
-        // 当 help 功能激活且单击任何 'box' 时，显示其 alt 文本
-        if (isHelpModeActive && box.alt) {
-            updateTextCursor(box.alt);
-        }
-    });
+  box.addEventListener('click', function() {
+      // 当 help 功能激活且单击任何 'box' 时，显示其 alt 文本
+      if (isHelpModeActive && box.getAttribute('alt')) {
+          updateTextCursor(box.getAttribute('alt').replace(/\|/g, '<br>')); // 替换段落分隔符并显示
+      }
+  });
 });
 
 // 添加全局双击事件监听器以取消 help 功能
@@ -398,12 +418,25 @@ function updateTextCursor(text) {
 
 
 //update textcursor
-function updateTextCursor(statusText = '') {
+function updateTextCursor(text = '') {
   const textCursor = document.getElementById('text-cursor');
   if (textCursor) {
-      textCursor.textContent = statusText || `${userName}${isEditing ? ' typing' : isBucketSelected ? ' pouring' : isResizing ? ' resizing' : brushActive ? ' drawing' : isRotating ? ' rotating' : ''}`;
+      if (isEditing) {
+          textCursor.textContent = `${userName} typing`;
+      } else if (isBucketSelected) {
+          textCursor.textContent = `${userName} pouring`;
+      } else if (isResizing) {
+          textCursor.textContent = `${userName} resizing`;
+      } else if (brushActive) {
+          textCursor.textContent = `${userName} drawing`; 
+      } else if (isRotating) {
+          textCursor.textContent = `${userName} rotating`;
+      } else if (isHelpModeActive) {
+          textCursor.innerHTML = text || helpText; // 显示 help 文本或当前指定的文本
+      } else {
+          textCursor.textContent = userName;
+      }
   }
-  updateUserNameDisplay();
 }
 
 // 获取ID为 'screenshot' 的元素
