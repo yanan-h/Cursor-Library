@@ -42,17 +42,20 @@ canvas {
 
 h1{
     position: absolute;
-    top:200px;
-    left:1280px;
-    font-size: 80px;
-    font-family: 'Courier New', Courier, monospace;
+    top:180px;
+    left:1250px;
+    font-size: 90px;
+    /*font-family: 'Courier New', Courier, monospace;*/
+    font-weight: 900;
+    letter-spacing: 2px;
 }
 
 h2{
     position: absolute;
-    top:750px;
+    top:700px;
     left:250px;
     font-size: 35px;
+    font-weight:330;
 }
 .box {
     position: absolute;
@@ -131,7 +134,7 @@ h2{
 
 .brush{
     position: absolute;
-    top: 820px;
+    top: 780px;
     left:80px;
     width:100px;
 }

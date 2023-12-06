@@ -8,26 +8,29 @@ document.addEventListener('mousemove', function (e) {
         textCursor.id = 'text-cursor';
         textCursor.style.position = 'absolute';
         textCursor.style.pointerEvents = 'none'; 
-        textCursor.style.fontSize = '20px';
+        textCursor.style.fontSize = '18px';
         textCursor.textContent = userName;
         document.body.appendChild(textCursor);
     }
 
-    if (!isHelpModeActive) {
-      if (isEditing) {
-          textCursor.textContent = `${userName} typing`;
-      } else if (brushActive) {
-          textCursor.textContent = `${userName} drawing`;
-      } else if (isResizing) {
-          textCursor.textContent = `${userName} resizing`;
-      } else if (isRotating) {
-          textCursor.textContent = `${userName} rotating`;
-      } else if (isMovable) {
-          textCursor.textContent = `${userName} moving`;
-      } else {
-          textCursor.textContent = userName;
-      }
-  }
+    if (isBucketSelected) {
+        textCursor.textContent = `${userName} pouring`;
+    } else if (!isHelpModeActive) {
+        if (isEditing) {
+            textCursor.textContent = `${userName} typing`;
+        } else if (brushActive) {
+            textCursor.textContent = `${userName} drawing`;
+        } else if (isResizing) {
+            textCursor.textContent = `${userName} resizing`;
+        } else if (isRotating) {
+            textCursor.textContent = `${userName} rotating`;
+        } else if (isMovable) {
+            textCursor.textContent = `${userName} moving`;
+        } else {
+            textCursor.textContent = userName;
+        }
+    }
+    
 
   textCursor.style.left = e.clientX + 'px';
   textCursor.style.top = e.clientY + 'px';
@@ -97,19 +100,20 @@ let isBucketSelected = false; // 用于跟踪是否选中了"bucket"元素
 const buckets = document.querySelectorAll(".bucket");
 
 buckets.forEach(bucket => {
-  bucket.addEventListener("dblclick", () => {
-    // 改变背景颜色
-    document.body.style.backgroundColor = getRandomColor();
-    
-    // 立即更新文本光标为倾倒状态
-    updateTextCursor(`${userName} pouring`);
-
-    // 设置延时，几秒后重置光标文字
-    setTimeout(() => {
-      updateTextCursor(); // 重置文本光标
-    }, 3000); // 3秒后执行
+    bucket.addEventListener("dblclick", () => {
+      isBucketSelected = !isBucketSelected; // 切换 isBucketSelected 状态
+      document.body.style.backgroundColor = getRandomColor(); // 改变背景颜色
+  
+      // 立即更新文本光标为倾倒状态
+      updateTextCursor(`${userName} pouring`);
+  
+      // 设置延时，几秒后重置光标文字
+      setTimeout(() => {
+        updateTextCursor(); // 重置文本光标
+        isBucketSelected = false; // 重置 isBucketSelected 状态
+      }, 800); // 0.8秒后执行
+    });
   });
-});
 
 // 生成随机颜色的函数
 function getRandomColor() {
