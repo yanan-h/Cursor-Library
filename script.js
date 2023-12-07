@@ -15,18 +15,18 @@ document.addEventListener('mousemove', function (e) {
     }
 
     if (isBucketSelected) {
-        textCursor.textContent = `${userName} pouring`;
+        textCursor.textContent = `${userName} is pouring...`;
     } else if (!isHelpModeActive) {
         if (isEditing) {
-            textCursor.textContent = `${userName} typing`;
+            textCursor.textContent = `${userName} is typing...`;
         } else if (brushActive) {
-            textCursor.textContent = `${userName} drawing`;
+            textCursor.textContent = `${userName} is drawing...`;
         } else if (isResizing) {
-            textCursor.textContent = `${userName} resizing`;
+            textCursor.textContent = `${userName} is resizing...`;
         } else if (isRotating) {
-            textCursor.textContent = `${userName} rotating`;
+            textCursor.textContent = `${userName} is rotating...`;
         } else if (isMovable) {
-            textCursor.textContent = `${userName} moving`;
+            textCursor.textContent = `${userName} is moving...`;
         } else {
             textCursor.textContent = userName;
         }
@@ -53,7 +53,7 @@ move.ondblclick = function() {
 
   // 添加 "moving" 到鼠标文本
   if (isMovable) {
-    move.textContent += " moving";
+    move.textContent += " is moving...";
   }
 };
 
@@ -106,7 +106,7 @@ buckets.forEach(bucket => {
       document.body.style.backgroundColor = getRandomColor(); // 改变背景颜色
   
       // 立即更新文本光标为倾倒状态
-      updateTextCursor(`${userName} pouring`);
+      updateTextCursor(`${userName} is pouring...`);
   
       // 设置延时，几秒后重置光标文字
       setTimeout(() => {
@@ -169,7 +169,7 @@ brush.addEventListener('dblclick', function() {
     painting = !painting;
     const textCursor = document.getElementById('text-cursor');
     if (textCursor) {
-        textCursor.textContent = painting ? `${userName} drawing` : userName;
+        textCursor.textContent = painting ? `${userName} is drawing...` : userName;
     }
     if (painting) {
         canvas.addEventListener('mousedown', startPainting);
@@ -261,7 +261,7 @@ const resizeHandles = document.querySelectorAll('.resize');
 resizeHandles.forEach(handle => {
     handle.addEventListener('dblclick', function() {
         isResizing = !isResizing;
-        updateTextCursor(isResizing ? `${userName} resizing` : '');
+        updateTextCursor(isResizing ? `${userName} is resizing...` : '');
     });
 });
 
@@ -334,7 +334,7 @@ let rotateBox = null;
 const rotateHandle = document.getElementById('rotate');
 rotateHandle.addEventListener('dblclick', function() {
     isRotating = !isRotating;
-    updateTextCursor(isRotating ? `${userName} rotating` : '');
+    updateTextCursor(isRotating ? `${userName} is rotating...` : '');
 });
 
 document.addEventListener('mousedown', function(e) {
@@ -427,15 +427,15 @@ function updateTextCursor(text = '') {
   const textCursor = document.getElementById('text-cursor');
   if (textCursor) {
       if (isEditing) {
-          textCursor.textContent = `${userName} typing`;
+          textCursor.textContent = `${userName} is typing...`;
       } else if (isBucketSelected) {
-          textCursor.textContent = `${userName} pouring`;
+          textCursor.textContent = `${userName} is pouring...`;
       } else if (isResizing) {
-          textCursor.textContent = `${userName} resizing`;
+          textCursor.textContent = `${userName} is resizing...`;
       } else if (brushActive) {
-          textCursor.textContent = `${userName} drawing`; 
+          textCursor.textContent = `${userName} is drawing...`; 
       } else if (isRotating) {
-          textCursor.textContent = `${userName} rotating`;
+          textCursor.textContent = `${userName} is rotating...`;
       } else if (isHelpModeActive) {
           textCursor.innerHTML = text || helpText; // 显示 help 文本或当前指定的文本
       } else {
