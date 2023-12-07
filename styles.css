@@ -319,11 +319,13 @@ li {
     }
 }
 
-
-    
-
 @media print {
     
+    @page {
+        size: 11in 17in landscape;
+        margin: 10mm;
+      }
+
     .outer {
         display:none;
     }
