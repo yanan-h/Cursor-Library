@@ -281,11 +281,29 @@ li {
     margin-top: 20px;
 }
 
-/* 当屏幕宽度小于600像素时 */
+/* 当屏幕宽度小于600像素时显示该消息 */
 @media screen and (max-width: 600px) {
-    /* 显示该消息 */
+    body {
+        display: flex;
+        justify-content: center; /* 水平居中 */
+        align-items: center; /* 垂直居中 */
+        height: 100vh; /* 视口高度 */
+        margin: 0; /* 移除默认的 margin */
+    }
+
+    /* 显示消息框，并设置其样式 */
     .desktop-only-message {
-        display: block;
+        display: flex;
+        justify-content: center; /* 水平居中内容 */
+        align-items: center; /* 垂直居中内容 */
+        text-align: center;
+        padding: 20px;
+        font-size: 18px;
+        background-color: #f8f8f8;
+        border: 1px solid #ddd;
+        width: 80%; /* 消息框宽度 */
+        max-width: 400px; /* 最大宽度限制 */
+        box-shadow: 0px 0px 10px rgba(0,0,0,0.1); /* 可选的阴影效果 */
     }
 
     /* 隐藏页面的其他部分 */

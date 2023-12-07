@@ -58,6 +58,31 @@ button {
     animation: scrollText 20s linear infinite;
 }
 
+.desktop-only-message {
+  display: none;
+  text-align: center; 
+  padding: 20px;
+  font-size: 24px;
+  max-width: 400px;
+  color: black;
+  background-color: #f8f8f8;
+  border: 1px solid #ddd;
+  margin-top: 20px;
+}
+
+/* 当屏幕宽度小于600像素时 */
+@media screen and (max-width: 600px) {
+  /* 显示该消息 */
+  .desktop-only-message {
+      display: block;
+  }
+
+  /* 隐藏页面的其他部分 */
+  .scrolling-text, #nameForm {
+      display: none;
+  }
+}
+
 @keyframes scrollText {
     from { transform: translateX(0); }
     to { transform: translateX(-100%); }
