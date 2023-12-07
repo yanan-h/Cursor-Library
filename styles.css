@@ -235,6 +235,25 @@ h2{
     width: 76px;
 }
 
+.footer {
+    position: absolute;
+    bottom: 0.6vw;
+    width: 100%;
+    text-align: center;
+    font-size: 10pt;
+}
+
+.footer a {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.footer a:hover {
+    cursor:none;
+    text-decoration: underline;
+}
+
 ul,
 li {
   list-style: none;
@@ -258,8 +277,7 @@ li {
     font-weight: 600;
     font-family: 'Fira Sans', sans-serif;
     top: 0.5vw; /* 顶部对齐到父元素的上边缘 */
-   
-  
+   font-size: 12pt;
   }
 
 .li-style {
