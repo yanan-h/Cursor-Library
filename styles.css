@@ -5,6 +5,7 @@
 
 html{
     cursor: none;
+    font-family: 'Fira Sans', sans-serif;
 }
 
 body{
@@ -268,6 +269,32 @@ li {
 }
 
 
+/* 默认情况下隐藏该消息 */
+.desktop-only-message {
+    display: none;
+    text-align: center; 
+    padding: 20px;
+    font-size: 24px;
+    color: black;
+    background-color: #f8f8f8;
+    border: 1px solid #ddd;
+    margin-top: 20px;
+}
+
+/* 当屏幕宽度小于600像素时 */
+@media screen and (max-width: 600px) {
+    /* 显示该消息 */
+    .desktop-only-message {
+        display: block;
+    }
+
+    /* 隐藏页面的其他部分 */
+    .container, .outer, #loop-show-box, #userNameDisplay, canvas, #text-cursor {
+        display: none;
+    }
+}
+
+
 @media screen {
     #userNameDisplay {
         display: none;
@@ -278,6 +305,7 @@ li {
     
 
 @media print {
+    
     .outer {
         display:none;
     }

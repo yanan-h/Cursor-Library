@@ -8,12 +8,38 @@ body, html {
     font-family: 'Fira Sans', sans-serif;
   }
 
+
   #nameForm {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 10px; /* 为表单元素间添加一些间距 */
+    font-size: 30pt;
+    font-weight: 800;
+    gap: 20px; /* 为表单元素间添加一些间距 */
+    letter-spacing: 1px;
   }
+
+  input[type="text"] {
+    width: 300px; /* 调整输入框的宽度 */
+    height: 40px; /* 调整输入框的高度 */
+    font-size: 18px; /* 调整输入框内文字的大小 */
+    padding: 5px 10px; /* 添加一些内边距以更好的视觉效果 */
+    border-radius: 5px; /* 给输入框添加圆角 */
+    font-size: 30px;
+}
+
+button {
+    width: 100px; /* 调整按钮的宽度 */
+    height: 46px; /* 调整按钮的高度，与输入框的高度保持一致 */
+    font-size: 18px; /* 调整按钮文字的大小 */
+    border-radius: 5px; /* 给按钮添加圆角 */
+    cursor: pointer; /* 当鼠标悬停时显示手形指针 */
+    font-family: 'Fira Sans', sans-serif;
+    font-weight: 600;
+    font-size: 15pt;
+    letter-spacing: 1.5px;
+}
+
 
   .scrolling-banner {
     position: fixed;
@@ -23,6 +49,7 @@ body, html {
     color: white;
     white-space: nowrap;
     overflow: hidden;
+    font-weight:600;
 }
 
 .scrolling-text {

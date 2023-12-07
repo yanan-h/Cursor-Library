@@ -9,6 +9,7 @@ document.addEventListener('mousemove', function (e) {
         textCursor.style.position = 'absolute';
         textCursor.style.pointerEvents = 'none'; 
         textCursor.style.fontSize = '18px';
+        textCursor.style.fontWeight = '400';
         textCursor.textContent = userName;
         document.body.appendChild(textCursor);
     }
