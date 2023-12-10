@@ -32,9 +32,9 @@ document.addEventListener('mousemove', function (e) {
         }
     }
     
-
-  textCursor.style.left = e.clientX + 'px';
-  textCursor.style.top = e.clientY + 'px';
+    textCursor.style.left = e.clientX + window.pageXOffset + 'px';
+    textCursor.style.top = e.clientY + window.pageYOffset + 'px';
+    
 });
 
 

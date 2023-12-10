@@ -236,7 +236,7 @@ h2{
 }
 
 .footer {
-    position: absolute;
+    position: fixed;
     bottom: 0.6vw;
     width: 100%;
     text-align: center;
@@ -269,7 +269,7 @@ li {
     line-height: 25px;
     background: black;
     color: white;
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     right: 0;
